@@ -6,20 +6,20 @@ var _table_ = document.createElement('table'),
     _td_ = document.createElement('td');
 
 
-// Builds the HTML Table out of myList json data from Ivy restful service.
+// função cria tabela
  function buildHtmlTable(arr) {
-//     set cfg
+    // id da tabela
     _table_.id = "tabelaTeste";
-     // falta colocar TBODY pra funcionar o bootstrap
-//     cria tabela
+    
+    // Cria tabela
     var tbody = _tbody_.cloneNode(false);
     var thead = _thead_.cloneNode(false);
     var table = _table_.cloneNode(false),
          columns = addAllColumnHeaders(arr, thead);
-    table.className = "table table-striped table-bordered table-hover table-condensed";
-        
-        
-     for (var i=0, maxi=arr.length; i < maxi; ++i) {
+ 
+    table.className = "table table-striped table-hover small";
+
+    for (var i=0, maxi=arr.length; i < maxi; ++i) {
          var tr = _tr_.cloneNode(false);
          for (var j=0, maxj=columns.length; j < maxj ; ++j) {
              var td = _td_.cloneNode(false);
@@ -28,17 +28,15 @@ var _table_ = document.createElement('table'),
              tr.appendChild(td);
          }
          tbody.appendChild(tr);
-     }     
+     }
+     
      table.appendChild(thead);
      table.appendChild(tbody);
      
-//     table.className = "table table-striped";
      return table;
  }
  
- // Adds a header row to the table and returns the set of columns.
- // Need to do union of keys from all records as some records may not contain
- // all records
+ // add cabeçalho
  function addAllColumnHeaders(arr, thead)
  {
      var columnSet = [],
