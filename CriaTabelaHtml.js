@@ -1,22 +1,22 @@
 var _table_ = document.createElement('table'), 
+    _thead_ = document.createElement('thead'),
     _tbody_ = document.createElement('tbody'),
     _tr_ = document.createElement('tr'),
     _th_ = document.createElement('th'),
     _td_ = document.createElement('td');
 
 
-// criador de tabela
+// Builds the HTML Table out of myList json data from Ivy restful service.
  function buildHtmlTable(arr) {
-    // ADD ID
+//     set cfg
     _table_.id = "tabelaTeste";
-
-    // cria tabela
-    var tbody = _tbody_.cloneNode(false); // TBODY PRA BOOTSTRAP
+     // falta colocar TBODY pra funcionar o bootstrap
+//     cria tabela
+    var tbody = _tbody_.cloneNode(false);
+    var thead = _thead_.cloneNode(false);
     var table = _table_.cloneNode(false),
-         columns = addAllColumnHeaders(arr, tbody); // Envia array e tbody pra receber os dados
-         
-    // ADD CLASS
-    table.className = "table table-hover table-striped";
+         columns = addAllColumnHeaders(arr, thead);
+    table.className = "table table-striped table-bordered table-hover table-condensed";
         
         
      for (var i=0, maxi=arr.length; i < maxi; ++i) {
@@ -27,15 +27,19 @@ var _table_ = document.createElement('table'),
              td.appendChild(document.createTextNode(arr[i][columns[j]] || ''));
              tr.appendChild(td);
          }
-         tbody.appendChild(tr); // add no tbody
+         tbody.appendChild(tr);
      }     
-     table.appendChild(tbody); // add na tabela
+     table.appendChild(thead);
+     table.appendChild(tbody);
      
+//     table.className = "table table-striped";
      return table;
  }
  
- // ADD CABEÇALHO
- function addAllColumnHeaders(arr, tbody)
+ // Adds a header row to the table and returns the set of columns.
+ // Need to do union of keys from all records as some records may not contain
+ // all records
+ function addAllColumnHeaders(arr, thead)
  {
      var columnSet = [],
          tr = _tr_.cloneNode(false);
@@ -49,6 +53,6 @@ var _table_ = document.createElement('table'),
              }
          }
      }
-     tbody.appendChild(tr);
+     thead.appendChild(tr);
      return columnSet;
  }
