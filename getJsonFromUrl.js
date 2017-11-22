@@ -10,6 +10,7 @@ jQuery(function($) {
             // objeto . header1
             $.each(jsonData.data, function(Idx, Value) {
                 $.each(Value, function(x, y) {
+                    // se nome do cabeçalho é procurado
                     if(x == 'header'){
                         i = i + 1;
                         date[i] = y;
